@@ -1,0 +1,301 @@
+# ============================================================
+# AI LEARNING & STUDY ASSISTANT
+# Domain: Agentic AI / Generative AI
+# NM ID: 07AF0726FAE0604AEA14B6EF1A2CC630
+# Name: A. Muthumeena
+# Course: B.E Computer Science Engineering (AI & ML)
+# College: Mangayarkarasi College of Engineering
+#
+# Features:
+# 1. RAG - Course Material Question Answering
+# 2. Memory - Student Information
+# 3. Tool - Study Plan Generator
+# 4. Tool - Quiz Generator
+# ============================================================
+
+
+# -----------------------------
+# MEMORY
+# -----------------------------
+
+memory = {
+    "name": "A. Muthumeena",
+    "course": "B.E Computer Science Engineering (AI & ML)",
+    "college": "Mangayarkarasi College of Engineering",
+    "subject": "Artificial Intelligence"
+}
+
+
+# -----------------------------
+# COURSE MATERIAL
+# -----------------------------
+
+course_material = {
+    "artificial intelligence":
+        "Artificial Intelligence (AI) is a branch of computer science "
+        "that enables machines to perform tasks that normally require human intelligence.",
+
+    "machine learning":
+        "Machine Learning (ML) is a subset of Artificial Intelligence. "
+        "It allows computers to learn patterns from data and make predictions.",
+
+    "generative ai":
+        "Generative AI is a type of Artificial Intelligence that can create "
+        "new content such as text, images, audio, video and code.",
+
+    "rag":
+        "RAG stands for Retrieval Augmented Generation. "
+        "It retrieves relevant information from a knowledge source "
+        "and uses it to generate a better answer.",
+
+    "memory":
+        "Memory allows an AI agent to store and use relevant information "
+        "from previous interactions.",
+
+    "agentic ai":
+        "Agentic AI refers to AI systems that can plan tasks, use tools, "
+        "make decisions and perform multiple steps to achieve a goal.",
+
+    "python":
+        "Python is a popular programming language used for Artificial Intelligence, "
+        "Machine Learning, Data Science and Web Development.",
+
+    "dbms":
+        "DBMS stands for Database Management System. "
+        "It is software used to store, organize, manage and retrieve data.",
+
+    "normalization":
+        "Normalization is a database design technique used to reduce "
+        "data redundancy and improve data integrity.",
+
+    "sql":
+        "SQL stands for Structured Query Language. "
+        "It is used to create, read, update and delete data in databases."
+}
+
+
+# -----------------------------
+# RAG TOOL
+# -----------------------------
+
+def rag_search(question):
+
+    question = question.lower()
+
+    best_match = None
+    best_score = 0
+
+    for keyword in course_material:
+
+        words = keyword.split()
+
+        score = 0
+
+        for word in words:
+            if word in question:
+                score += 1
+
+        if score > best_score:
+            best_score = score
+            best_match = keyword
+
+    if best_match:
+        return course_material[best_match]
+
+    return (
+        "Sorry, I could not find relevant information "
+        "in the course material."
+    )
+
+
+# -----------------------------
+# STUDY PLAN TOOL
+# -----------------------------
+
+def create_study_plan():
+
+    print("\n--- STUDY PLAN GENERATOR ---")
+
+    subject = input("Enter subject: ")
+
+    days = int(input("Enter number of days: "))
+
+    topics = input(
+        "Enter topics separated by comma: "
+    )
+
+    topic_list = topics.split(",")
+
+    print("\nYour Personalized Study Plan\n")
+
+    for i in range(days):
+
+        topic = topic_list[i % len(topic_list)].strip()
+
+        print(
+            "Day", i + 1,
+            "->",
+            subject,
+            ":", topic
+        )
+
+
+# -----------------------------
+# QUIZ TOOL
+# -----------------------------
+
+def generate_quiz():
+
+    print("\n--- QUIZ GENERATOR ---")
+
+    questions = [
+        {
+            "question": "What does AI stand for?",
+            "answer": "Artificial Intelligence"
+        },
+        {
+            "question": "What does RAG stand for?",
+            "answer": "Retrieval Augmented Generation"
+        },
+        {
+            "question": "What is Generative AI?",
+            "answer": "AI that generates new content"
+        },
+        {
+            "question": "What does DBMS stand for?",
+            "answer": "Database Management System"
+        },
+        {
+            "question": "What is Machine Learning?",
+            "answer": "A subset of AI that learns from data"
+        }
+    ]
+
+    score = 0
+
+    print("\nAnswer the following questions:\n")
+
+    for i, item in enumerate(questions, 1):
+
+        print("Q", i, ".", item["question"])
+
+        answer = input("Your answer: ")
+
+        if answer.lower() in item["answer"].lower():
+            print("Correct!\n")
+            score += 1
+        else:
+            print(
+                "Correct answer:",
+                item["answer"],
+                "\n"
+            )
+
+    print(
+        "Final Score:",
+        score,
+        "/",
+        len(questions)
+    )
+
+
+# -----------------------------
+# MEMORY TOOL
+# -----------------------------
+
+def show_memory():
+
+    print("\n--- STUDENT MEMORY ---")
+
+    print("Name    :", memory["name"])
+    print("Course  :", memory["course"])
+    print("College :", memory["college"])
+    print("Subject :", memory["subject"])
+
+
+# -----------------------------
+# ASK QUESTION TOOL
+# -----------------------------
+
+def ask_question():
+
+    print("\n--- RAG QUESTION ANSWERING ---")
+
+    question = input(
+        "Ask your question: "
+    )
+
+    print("\nSearching course material...")
+
+    answer = rag_search(question)
+
+    print("\nAI Assistant Answer:")
+    print(answer)
+
+
+# -----------------------------
+# MAIN AGENT
+# -----------------------------
+
+def main():
+
+    print("=" * 55)
+    print("       AI LEARNING & STUDY ASSISTANT")
+    print("=" * 55)
+
+    print("\nDomain: Agentic AI / Generative AI")
+    print("NM ID: 07AF0726FAE0604AEA14B6EF1A2CC630")
+    print("Name: A. Muthumeena")
+    print("Course: B.E Computer Science Engineering (AI & ML)")
+    print("College: Mangayarkarasi College of Engineering")
+
+    while True:
+
+        print("\n")
+        print("========== MENU ==========")
+        print("1. Ask Question using RAG")
+        print("2. Create Learning Plan")
+        print("3. Generate Quiz")
+        print("4. Show Memory")
+        print("5. Exit")
+        print("==========================")
+
+        choice = input(
+            "Enter your choice: "
+        )
+
+        if choice == "1":
+
+            ask_question()
+
+        elif choice == "2":
+
+            create_study_plan()
+
+        elif choice == "3":
+
+            generate_quiz()
+
+        elif choice == "4":
+
+            show_memory()
+
+        elif choice == "5":
+
+            print("\nThank you for using")
+            print("AI Learning & Study Assistant!")
+            break
+
+        else:
+
+            print(
+                "\nInvalid choice. "
+                "Please enter 1 to 5."
+            )
+
+
+# -----------------------------
+# START PROGRAM
+# -----------------------------
+
+main()
